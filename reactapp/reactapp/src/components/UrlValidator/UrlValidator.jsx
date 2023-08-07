@@ -23,16 +23,16 @@ return;
     if(['GET'].includes(method) && body.trim().length > 0) {
 if(!/^\{.*"[A-Za-z]+".*:.*"[A-Za-z]+".*\}$/i.test(body)) {
 setMessage('Error in the Body of the Query Params');
-      return;
-      }
+return;
+}
     }
     if(['GET'].includes(method) && body.trim().length > 0) {
-      let te = body.trim().replace(/[\s\{\}\"]+/g,"");
-      const tem = te.trim().replace(":","=");
-      url = `${domain}/${cleanedPath}?${tem}`;
+let te = body.trim().replace(/[\s\{\}\"]+/g,"");
+const tem = te.trim().replace(":","=");
+url = `${domain}/${cleanedPath}?${tem}`;
     }
     else {
-      url = `${domain}/${cleanedPath}`;
+url = `${domain}/${cleanedPath}`;
     }
     console.log(`URL: ${url}`);
     console.log(`Body: ${body}`);
@@ -42,18 +42,18 @@ setMessage('Error in the Body of the Query Params');
     setBody('');
     setMessage(url);
     }
-  }, [domain, path, method]);
-  const handleSubmit = (event) => {
+}, [domain, path, method]);
+const handleSubmit = (event) => {
     event.preventDefault();
     const target = event.target;
     setDomain(target[0].value);
     setPath(target[1].value);
     setMethod(target[2].value);
     setBody(target[3].value);
-  }
-  return (
+}
+return (
     <div data-testid="url-validator">
-      <form data-testid="submit" onSubmit={handleSubmit}>
+<form data-testid="submit" onSubmit={handleSubmit}>
         <label htmlFor="domain">Domain:</label>
         <input data-testid="domain" type="text" id="domain" value={domain} onChange={(event) => setDomain(event.target.value)} />
 
@@ -62,26 +62,26 @@ setMessage('Error in the Body of the Query Params');
 
         <label htmlFor="method">Method:</label>
         <select data-testid="method" id="method" value={method} onChange={(event) => setMethod(event.target.value)} >
-          <option value="GET">GET</option>
-          <option value="POST">POST</option>
-          <option value="PUT">PUT</option>
-          <option value="DELETE">DELETE</option>
+<option value="GET">GET</option>
+<option value="POST">POST</option>
+<option value="PUT">PUT</option>
+<option value="DELETE">DELETE</option>
         </select>
 
         {method !== "DELETE" &&
-          <React.Fragment>
+<React.Fragment>
             <label htmlFor="body">Body:</label>
             <textarea data-testid="body" id="body" value={body} onChange={(event) => setBody(event.target.value)} ></textarea>
-          </React.Fragment>
+</React.Fragment>
         }
 
         <button type="submit">Validate URL</button>
-      </form>
+</form>
 
-      {message && <div data-testid="message">{message}</div>}
-      
+{message && <div data-testid="message">{message}</div>}
+
     </div>
-  );
+);
 }
 
 export default UrlValidator;
