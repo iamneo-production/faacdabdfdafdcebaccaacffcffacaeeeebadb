@@ -31,7 +31,7 @@ const validateForm = (domain,path,method,body) => {
             if (!isValidJson(body)) return "Error in the Body of the Query Params";
         }
         if (method === "POST" || method === "PUT") {
-            if(Object.keys(body).length === 0) 
+            if(Object.keys(body).length === 0)
                 return "Error in the Body";
             if(!isValidJson(body)) {
                 return "Error in the Body";
