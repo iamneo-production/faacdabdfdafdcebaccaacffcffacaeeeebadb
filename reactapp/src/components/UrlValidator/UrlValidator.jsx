@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
+ 
 const UrlValidator = () => {
-
+ 
     let [disabled,setDisabled] = useState(false);
+ 
     const isValidateDomain = (d) => {
         return !!(d.startsWith("www.") && d.endsWith(".com"));
     }
+ 
     const convertToPath = (input) => {
         return '/' + input.split(" ").join("/");
     }
+ 
     const convertJson = (jsonString) => {
         const jsonObject = JSON.parse(jsonString);
         const params = "?" + Object.entries(jsonObject).map((e) => e.join("=")).join("&");
         return params;
     }
+ 
     const isValidJson = (jsonString) => {
         try {
             JSON.parse(jsonString);
@@ -21,7 +26,8 @@ const UrlValidator = () => {
             return false;
         }
     }
-const validateForm = (domain,path,method,body) => {
+ 
+    const validateForm = (domain,path,method,body) => {
         if (!isValidateDomain(domain)) {
             console.log("went");
             return "Invalid URL! Please recheck your URL";
@@ -31,7 +37,7 @@ const validateForm = (domain,path,method,body) => {
             if (!isValidJson(body)) return "Error in the Body of the Query Params";
         }
         if (method === "POST" || method === "PUT") {
-            if(Object.keys(body).length === 0)
+            if(Object.keys(body).length === 0) 
                 return "Error in the Body";
             if(!isValidJson(body)) {
                 return "Error in the Body";
@@ -39,6 +45,7 @@ const validateForm = (domain,path,method,body) => {
         }
         return "";
     }
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let domain = e.target[0].value;
@@ -58,11 +65,13 @@ const validateForm = (domain,path,method,body) => {
         else {
             document.getElementById("message").textContent = tmp_msg;
         }
+ 
     }
     return (
         <div className="main-div">
             <div data-testid="message" id="message"></div>
             <form data-testid="submit" onSubmit={handleSubmit}>
+ 
                 <label>
                     Domain:
                     <input data-testid="domain" type="text" />
@@ -89,7 +98,8 @@ const validateForm = (domain,path,method,body) => {
                 <label>
                     Body:
                     <textarea data-testid="body" 
-                        disabled={disabled} />
+                        disabled={disabled}  
+                     />
                 </label>
                 <br />
                 <button type="submit">Validate</button>
@@ -97,4 +107,5 @@ const validateForm = (domain,path,method,body) => {
         </div>
     );
 }
+ 
 export default UrlValidator;
